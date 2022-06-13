@@ -1,45 +1,65 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Hangman {
-    private String[] wordList =
-            {
-            "ABSTRACT", "ASSERT", "BOOLEAN", "BREAK", "BYTE",
-            "CASE", "CATCH", "CHAR", "CLASS", "CONST",
-            "CONTINUE", "DEFAULT", "DOUBLE", "DO", "ELSE",
-            "ENUM", "EXTENDS", "FALSE", "FINAL", "FINALLY",
-            "FLOAT", "FOR", "GOTO", "IF", "IMPLEMENTS",
-            "IMPORT", "INSTANCEOF", "INT", "INTERFACE", "LONG",
-            "NATIVE", "NEW", "NULL", "PACKAGE", "PRIVATE",
-            "PROTECTED", "PUBLIC", "RETURN", "SHORT", "STATIC",
-            "STRICTFP", "SUPER", "SWITCH", "SYNCHRONIZED",
-            "THIS", "THROW", "THROWS", "TRANSIENT", "TRUE",
-            "TRY", "VOID", "VOLATILE", "WHILE"
-            };
-
     // The word the player will try and guess
     private String randomWord;
 
-    // The wrong letters the player has guessed
-    private ArrayList<String> missedLetters = new ArrayList<>();
+    private String art;
 
-    // The correct word as a list
-    private ArrayList<String> randomWordList = new ArrayList<>();
+    // random word as a list
+    ArrayList<String> randomWordList;
 
-    // method to hold the art
-    public String getStartingArt()
+    // List of unguessed letters
+    ArrayList<String> correctLettersGuessed;
+
+    // String that will be displayed of the missed player guesses
+    private String missedGuesses = "Missed Guesses: ";
+
+    // Class Constructor
+    public Hangman()
     {
-        String artInitial = "+---+\n" +
-                            "    |\n" +
-                            "    |\n" +
-                            "    |\n" +
-                            "  ===\n";
-
-        return artInitial;
+        this.art = "+---+\n" +
+                   "    |\n" +
+                   "    |\n" +
+                   "    |\n" +
+                   "  ===\n";
+        this.randomWord = generateRandomWord();
+        this.randomWordList = new ArrayList<>(Arrays.asList(this.randomWord.split(" ")));
+        this.correctLettersGuessed = generateCorrectGuessesList();
     }
 
+    /********** GETTERS **********/
+
+    // method to hold the art
+    public String getArt()
+    {
+        return this.art;
+    }
+
+    // get the random word that was generated
+    public String getRandomWord()
+    {
+        return this.randomWord;
+    }
+
+    // method to display the missed letters
+    public String getMissedGuesses()
+    {
+        return missedGuesses;
+    }
+
+    // display correct guesses
+    public String getCorrectGuesses()
+    {
+
+    }
+
+    /********** SETTERS **********/
+
     // method to add to the art if a player guesses wrong
-    public String getArt(int wrongGuess)
+    public void setArt(int wrongGuess)
     {
         String oneWrongGuess = "+---+\n" +
                                "O   |\n" +
@@ -61,28 +81,34 @@ public class Hangman {
         switch (wrongGuess)
         {
             case 1:
-                return oneWrongGuess;
+                art = oneWrongGuess;
+                break;
             case 2:
-                return twoWrongGuess;
+                art = twoWrongGuess;
+                break;
             case 3:
-                return threeWrongGuess;
+                art = threeWrongGuess;
             default:
-                return "Not a valid wrong guess";
+                System.out.println("Error not a valid wrong guess" + wrongGuess);
         }
     }
 
-    // method to generate a random word and store it in the random word variable
-    public void generateRandomWord()
+    // Add a missed letter to the list and update the missedGuess string
+    public void setMissedGuesses(String guess)
     {
-        int randomNumber = (int)Math.floor(Math.random()*(this.wordList.length - 1) + 1);
-        this.randomWord = this.wordList[randomNumber];
+        missedGuesses = missedGuesses + " " + guess;
     }
 
-    // get the random word that was generated
-    public String getRandomWord()
+    // method to display the correct letters
+    public void setCorrectLettersGuessed(String guess)
     {
-        return this.randomWord;
+        // if the players guess is contained in the random word get the index
+        int index = randomWordList.indexOf(guess);
+        // update correctLettersGuessed list to include the players guess at the same index as the word
+        correctLettersGuessed.add(index, guess);
     }
+
+    /********** Checkers **********/
 
     // method to check if the guess is correct
     public boolean isGuessCorrect(String guess)
@@ -90,32 +116,37 @@ public class Hangman {
         return this.randomWord.contains(guess);
     }
 
-    // Add a missed letter to the list
-    public void updateMissedLetters(String letter)
+    /********** Private Methods **********/
+
+    // method to generate a random word using the word list
+    private String generateRandomWord()
     {
-        this.missedLetters.add(letter);
+        String[] wordList =
+                {
+                        "ABSTRACT", "ASSERT", "BOOLEAN", "BREAK", "BYTE",
+                        "CASE", "CATCH", "CHAR", "CLASS", "CONST",
+                        "CONTINUE", "DEFAULT", "DOUBLE", "DO", "ELSE",
+                        "ENUM", "EXTENDS", "FALSE", "FINAL", "FINALLY",
+                        "FLOAT", "FOR", "GOTO", "IF", "IMPLEMENTS",
+                        "IMPORT", "INSTANCEOF", "INT", "INTERFACE", "LONG",
+                        "NATIVE", "NEW", "NULL", "PACKAGE", "PRIVATE",
+                        "PROTECTED", "PUBLIC", "RETURN", "SHORT", "STATIC",
+                        "STRICTFP", "SUPER", "SWITCH", "SYNCHRONIZED",
+                        "THIS", "THROW", "THROWS", "TRANSIENT", "TRUE",
+                        "TRY", "VOID", "VOLATILE", "WHILE"
+                };
+
+        int randomNumber = (int)Math.floor(Math.random()*(wordList.length - 1) + 1);
+        return wordList[randomNumber];
     }
 
-    // method to display the missed letters
-    public String missedLettersDisplay()
+    private ArrayList<String> generateCorrectGuessesList()
     {
-        String text = "Missed letters: ";
+        ArrayList<String> correctWordList = new ArrayList<>();
 
-        for (String letter : this.missedLetters) text += letter;
-
-        return text;
-    }
-
-    // method to display the correct letters
-    public String displayLetters(String guess)
-    {
-        // make a list of the randomWord
-        // make a list of empty letters the same length as the randomWord
-
-        // if the players guess is contained in the random word get the index
-        // update the list of empty letters to include the players guess at the same index as the word
-
-        // return the empty list as a string
+        for (int i = 0; i < this.randomWord.length(); i++)
+            correctWordList.add("_");
+        return correctWordList;
     }
 
 }
