@@ -15,7 +15,7 @@ public class Main
             int missedGuesses = 0;
             int goodGuesses = 0;
             // iterate in a while loop that ends if the player misses 4 guesses
-            while(missedGuesses <= 3 && goodGuesses < hangman.getRandomWord().length() - 1)
+            while(missedGuesses <= 3 && !hangman.getCorrectGuesses().equals(hangman.getRandomWord()))
             {
                 // first display Hangman fields
                 System.out.println("HANGMAN");

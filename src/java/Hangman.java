@@ -54,7 +54,7 @@ public class Hangman {
     }
 
     // display correct guesses
-    private String getCorrectGuesses()
+    public String getCorrectGuesses()
     {
         return String.join("", correctLettersGuessed);
     }
@@ -129,20 +129,20 @@ public class Hangman {
     // method to generate a random word using the word list
     private String generateRandomWord()
     {
-        String[] wordList = { "CHAR", "ASSERT" };
-//                {
-//                        "ABSTRACT", "ASSERT", "BOOLEAN", "BREAK", "BYTE",
-//                        "CASE", "CATCH", "CHAR", "CLASS", "CONST",
-//                        "CONTINUE", "DEFAULT", "DOUBLE", "DO", "ELSE",
-//                        "ENUM", "EXTENDS", "FALSE", "FINAL", "FINALLY",
-//                        "FLOAT", "FOR", "GOTO", "IF", "IMPLEMENTS",
-//                        "IMPORT", "INSTANCEOF", "INT", "INTERFACE", "LONG",
-//                        "NATIVE", "NEW", "NULL", "PACKAGE", "PRIVATE",
-//                        "PROTECTED", "PUBLIC", "RETURN", "SHORT", "STATIC",
-//                        "STRICTFP", "SUPER", "SWITCH", "SYNCHRONIZED",
-//                        "THIS", "THROW", "THROWS", "TRANSIENT", "TRUE",
-//                        "TRY", "VOID", "VOLATILE", "WHILE"
-//                };
+        String[] wordList = // { "CHAR", "ASSERT" }; // Used for testing
+                {
+                        "ABSTRACT", "ASSERT", "BOOLEAN", "BREAK", "BYTE",
+                        "CASE", "CATCH", "CHAR", "CLASS", "CONST",
+                        "CONTINUE", "DEFAULT", "DOUBLE", "DO", "ELSE",
+                        "ENUM", "EXTENDS", "FALSE", "FINAL", "FINALLY",
+                        "FLOAT", "FOR", "GOTO", "IF", "IMPLEMENTS",
+                        "IMPORT", "INSTANCEOF", "INT", "INTERFACE", "LONG",
+                        "NATIVE", "NEW", "NULL", "PACKAGE", "PRIVATE",
+                        "PROTECTED", "PUBLIC", "RETURN", "SHORT", "STATIC",
+                        "STRICTFP", "SUPER", "SWITCH", "SYNCHRONIZED",
+                        "THIS", "THROW", "THROWS", "TRANSIENT", "TRUE",
+                        "TRY", "VOID", "VOLATILE", "WHILE"
+                };
 
         int randomNumber = (int)Math.floor(Math.random()*(wordList.length - 1) + 1);
         return wordList[randomNumber];
