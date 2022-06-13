@@ -29,7 +29,7 @@ public class Hangman {
                    "    |\n" +
                    "  ===\n";
         this.randomWord = generateRandomWord();
-        this.randomWordList = new ArrayList<>(Arrays.asList(this.randomWord.split(" ")));
+        this.randomWordList = new ArrayList<>(Arrays.asList(randomWord.split("")));
         this.correctLettersGuessed = generateCorrectGuessesList();
     }
 
@@ -92,7 +92,7 @@ public class Hangman {
             case 3:
                 art = threeWrongGuess;
             default:
-                System.out.println("Error not a valid wrong guess" + wrongGuess);
+                System.out.println("Sorry you are all out of guesses.");
         }
     }
 
@@ -105,10 +105,15 @@ public class Hangman {
     // method to display the correct letters
     public void setCorrectLettersGuessed(String guess)
     {
-        // if the players guess is contained in the random word get the index
-        int index = randomWordList.indexOf(guess);
-        // update correctLettersGuessed list to include the players guess at the same index as the word
-        correctLettersGuessed.add(index, guess);
+        // get the index of all the letters in the array that match the guess
+        // update the new array to have the letters in those indexes
+        for (int i = 0; i < randomWordList.size(); i++)
+        {
+            if (guess.equals(randomWordList.get(i)))
+            {
+                correctLettersGuessed.set(i, guess);
+            }
+        }
     }
 
     /********** Checkers **********/
@@ -124,20 +129,20 @@ public class Hangman {
     // method to generate a random word using the word list
     private String generateRandomWord()
     {
-        String[] wordList =
-                {
-                        "ABSTRACT", "ASSERT", "BOOLEAN", "BREAK", "BYTE",
-                        "CASE", "CATCH", "CHAR", "CLASS", "CONST",
-                        "CONTINUE", "DEFAULT", "DOUBLE", "DO", "ELSE",
-                        "ENUM", "EXTENDS", "FALSE", "FINAL", "FINALLY",
-                        "FLOAT", "FOR", "GOTO", "IF", "IMPLEMENTS",
-                        "IMPORT", "INSTANCEOF", "INT", "INTERFACE", "LONG",
-                        "NATIVE", "NEW", "NULL", "PACKAGE", "PRIVATE",
-                        "PROTECTED", "PUBLIC", "RETURN", "SHORT", "STATIC",
-                        "STRICTFP", "SUPER", "SWITCH", "SYNCHRONIZED",
-                        "THIS", "THROW", "THROWS", "TRANSIENT", "TRUE",
-                        "TRY", "VOID", "VOLATILE", "WHILE"
-                };
+        String[] wordList = { "CHAR", "ASSERT" };
+//                {
+//                        "ABSTRACT", "ASSERT", "BOOLEAN", "BREAK", "BYTE",
+//                        "CASE", "CATCH", "CHAR", "CLASS", "CONST",
+//                        "CONTINUE", "DEFAULT", "DOUBLE", "DO", "ELSE",
+//                        "ENUM", "EXTENDS", "FALSE", "FINAL", "FINALLY",
+//                        "FLOAT", "FOR", "GOTO", "IF", "IMPLEMENTS",
+//                        "IMPORT", "INSTANCEOF", "INT", "INTERFACE", "LONG",
+//                        "NATIVE", "NEW", "NULL", "PACKAGE", "PRIVATE",
+//                        "PROTECTED", "PUBLIC", "RETURN", "SHORT", "STATIC",
+//                        "STRICTFP", "SUPER", "SWITCH", "SYNCHRONIZED",
+//                        "THIS", "THROW", "THROWS", "TRANSIENT", "TRUE",
+//                        "TRY", "VOID", "VOLATILE", "WHILE"
+//                };
 
         int randomNumber = (int)Math.floor(Math.random()*(wordList.length - 1) + 1);
         return wordList[randomNumber];

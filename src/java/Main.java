@@ -13,8 +13,9 @@ public class Main
             Hangman hangman = new Hangman();
             // initialize missedGuesses counter variable
             int missedGuesses = 0;
+            int goodGuesses = 0;
             // iterate in a while loop that ends if the player misses 4 guesses
-            while(missedGuesses <= 3)
+            while(missedGuesses <= 3 && goodGuesses < hangman.getRandomWord().length() - 1)
             {
                 // first display Hangman fields
                 System.out.println("HANGMAN");
@@ -31,23 +32,36 @@ public class Main
                     System.out.println(err.getClass().getName());
                 }
 
-                guess.toUpperCase();
+                guess = guess.toUpperCase();
+                System.out.println(guess);
 
                 // check if the guess is correct using the Hangman method
                 if (hangman.isGuessCorrect(guess))
                 {
                     System.out.println("Awesome! You guessed correctly");
+                    goodGuesses++;
                     hangman.updateCorrectGuessFields(guess);
                 } else
                 {
-                    System.out.println("Sorry guessed incorrectly");
+                    System.out.println("uh oh! You guessed poorly");
                     missedGuesses++;
                     hangman.updateIncorrectGuessFields(guess, missedGuesses);
                 }
+
             }
             System.out.println("The word was " + hangman.getRandomWord());
+
+            // check for a win or a loss
+            if (missedGuesses > 3)
+            {
+                System.out.println("Better luck next time");
+            } else
+            {
+                System.out.println("Great Job, you won!");
+            }
+
             System.out.println("Would you like to play again? (y or n)?");
-            String answer = gameScanner.nextLine();
+            String answer = "";
             try
             {
                 answer = gameScanner.nextLine();
@@ -56,7 +70,15 @@ public class Main
                 System.out.println(err.getClass().getName());
             }
 
-            if (answer == "n") playAgain = false;
+            answer = answer.toUpperCase();
+            System.out.println(answer);
+            String n = "N";
+
+            if (answer.equals(n))
+            {
+                System.out.println("Come back soon");
+                playAgain = false;
+            }
 
         } while(playAgain);
 
