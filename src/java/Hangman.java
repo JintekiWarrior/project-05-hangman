@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Hangman {
+
+    /********** FIELDS **********/
     // The word the player will try and guess
     private String randomWord;
 
@@ -17,7 +19,8 @@ public class Hangman {
     // String that will be displayed of the missed player guesses
     private String missedGuesses = "Missed Guesses: ";
 
-    // Class Constructor
+    /********** CONSTRUCTORS **********/
+
     public Hangman()
     {
         this.art = "+---+\n" +
@@ -33,7 +36,7 @@ public class Hangman {
     /********** GETTERS **********/
 
     // method to hold the art
-    public String getArt()
+    private String getArt()
     {
         return this.art;
     }
@@ -45,15 +48,15 @@ public class Hangman {
     }
 
     // method to display the missed letters
-    public String getMissedGuesses()
+    private String getMissedGuesses()
     {
         return missedGuesses;
     }
 
     // display correct guesses
-    public String getCorrectGuesses()
+    private String getCorrectGuesses()
     {
-
+        return String.join("", correctLettersGuessed);
     }
 
     /********** SETTERS **********/
@@ -149,4 +152,22 @@ public class Hangman {
         return correctWordList;
     }
 
+    /********** Public Methods **********/
+    public void displayAllGameGraphics()
+    {
+        System.out.println(getArt());
+        System.out.println(getMissedGuesses());
+        System.out.println(getCorrectGuesses());
+    }
+
+    public void updateCorrectGuessFields(String guess)
+    {
+        setCorrectLettersGuessed(guess);
+    }
+
+    public void updateIncorrectGuessFields(String guess, int missedGuesses)
+    {
+        setArt(missedGuesses);
+        setMissedGuesses(guess);
+    }
 }
