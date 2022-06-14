@@ -6,9 +6,9 @@ public class Hangman {
 
     /********** FIELDS **********/
     // The word the player will try and guess
-    private String randomWord;
+    public String randomWord;
 
-    private String art;
+    public String art;
 
     // random word as a list
     ArrayList<String> randomWordList;
@@ -17,7 +17,7 @@ public class Hangman {
     ArrayList<String> correctLettersGuessed;
 
     // String that will be displayed of the missed player guesses
-    private String missedGuesses = "Missed Guesses: ";
+    public String missedGuesses = "Missed Guesses:";
 
     /********** CONSTRUCTORS **********/
 
@@ -36,7 +36,7 @@ public class Hangman {
     /********** GETTERS **********/
 
     // method to hold the art
-    private String getArt()
+    public String getArt()
     {
         return this.art;
     }
@@ -76,7 +76,7 @@ public class Hangman {
                                "  ===\n";
 
         String threeWrongGuess = "+---+\n" +
-                                 "O   |\n" +
+                                 "    |\n" +
                                  "|   |\n" +
                                  "A   |\n" +
                                  "  ===\n";
